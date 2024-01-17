@@ -17,7 +17,7 @@ public class SpawnPlayer : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)] //remnote precidule call
-    public void spawnplayer(NetworkConnection client = null)
+    private void spawnplayer(NetworkConnection client = null)
     {
         GameObject go = Instantiate(Player);
         
