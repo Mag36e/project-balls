@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using FishNet;
+using FishNet.Object;
 
-public class GrappleHook : MonoBehaviour
+public class GrappleHook : NetworkBehaviour
 {
     public LineRenderer lineRenderer;
     public DistanceJoint2D distanceJoint;
@@ -13,11 +15,20 @@ public class GrappleHook : MonoBehaviour
     private Vector2 _closestHook;
     private void Start()
     {
+        foreach(GameObject Hp in GameObject.FindGameObjectsWithTag("Hook")) // hp == hoked Points
+        { 
+            hookPoints.Add(Hp.transform);
+        }
         distanceJoint.enabled = false;
+        print("StartWorking");
     }
 
     private void Update()
     {
+        if (!IsOwner) return;
+        
+        
+            
         if (Input.GetKeyDown(KeyCode.Space))
         {
             float closestDistance = float.MaxValue;
