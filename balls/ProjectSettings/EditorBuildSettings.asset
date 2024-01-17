@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Mads Scene.unity
+    guid: c3e6541e95e17e44e8f0cd55c5d6e372
+  - enabled: 1
     path: Assets/Scenes/Magne Scene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   m_configObjects: {}
