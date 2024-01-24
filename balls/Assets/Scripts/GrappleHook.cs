@@ -20,15 +20,44 @@ public class GrappleHook : NetworkBehaviour
             hookPoints.Add(Hp.transform);
         }
         distanceJoint.enabled = false;
-        print("StartWorking");
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (base.IsOwner)
+        {
+
+        }
+        else
+        {
+            GetComponent<GrappleHook>().enabled = false;
+        }
     }
 
     private void Update()
     {
-        if (!IsOwner) return;
-        
-        
-            
+        if (!base.IsOwner)
+        {
+            return;
+        }
+            GrappelHookToServer();
+    }
+
+    [ServerRpc]
+    public void GrappelHookToServer()
+    {
+        GrappelHook();
+    }
+
+    [ObserversRpc]
+    private void GrappelHook()
+    {
+        if (!base.IsOwner)
+        {
+            return;
+        }
+        transform.position = transform.position;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             float closestDistance = float.MaxValue;

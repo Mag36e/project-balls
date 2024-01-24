@@ -9,14 +9,10 @@ public class ClientServerManager : MonoBehaviour
     [SerializeField] private bool isServer;
     private void Awake()
     {
-
-        
         /*
         InstanceFinder.ClientManager.StartConnection();
         InstanceFinder.ServerManager.StartConnection();
         */
-        
-       
         
         if (isServer)
         {
