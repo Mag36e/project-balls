@@ -27,7 +27,7 @@ public class GrappleHook : NetworkBehaviour
         base.OnStartClient();
         if (base.IsOwner)
         {
-
+            
         }
         else
         {
@@ -47,45 +47,50 @@ public class GrappleHook : NetworkBehaviour
     [ServerRpc]
     public void GrappelHookToServer()
     {
+        
         GrappelHook();
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     [ObserversRpc]
     private void GrappelHook()
     {
-        if (!base.IsOwner)
+        if (base.IsOwner)
         {
-            return;
-        }
-        transform.position = transform.position;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            float closestDistance = float.MaxValue;
-            foreach (Transform target in hookPoints)
+            transform.position = transform.position;
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                float distance = Vector2.Distance(transform.position, target.transform.position);
-
-                if (distance < closestDistance)
+                float closestDistance = float.MaxValue;
+                foreach (Transform target in hookPoints)
                 {
-                    closestDistance = distance;
-                    _closestHook = target.transform.position;
-                }
-            }
-            lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, _closestHook);
-            distanceJoint.connectedAnchor = _closestHook;
-            distanceJoint.enabled = true;
-            lineRenderer.enabled = true;
-        }
-        else if(Input.GetKeyUp(KeyCode.Space))
-        {
-            distanceJoint.enabled = false;
-            lineRenderer.enabled = false;
-        }
+                    float distance = Vector2.Distance(transform.position, target.transform.position);
 
-        if (distanceJoint.enabled)
-        {
-            lineRenderer.SetPosition(0, transform.position);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        _closestHook = target.transform.position;
+                    }
+                }
+                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(1, _closestHook);
+                distanceJoint.connectedAnchor = _closestHook;
+                distanceJoint.enabled = true;
+                lineRenderer.enabled = true;
+                Debug.Log("down");
+
+            }
+            if(Input.GetKeyUp(KeyCode.Space))
+            {
+                distanceJoint.enabled = false;
+                lineRenderer.enabled = false;
+                Debug.Log("up");
+
+            }
+
+            if (distanceJoint.enabled)
+            {
+                lineRenderer.SetPosition(0, transform.position);
+            }
         }
     }
 }

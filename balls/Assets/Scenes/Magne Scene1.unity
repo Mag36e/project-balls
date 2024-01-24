@@ -268,6 +268,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: _isGlobal
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: _scenePathHash
+      value: 3565773147
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 15314879053780473082
+      objectReference: {fileID: 0}
     - target: {fileID: 1445453044651339474, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.18990523
@@ -325,6 +337,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: _scenePathHash
+      value: 3565773147
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 15314879051499114371
+      objectReference: {fileID: 0}
     - target: {fileID: 1445453044651339474, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.6
@@ -382,6 +402,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: _isGlobal
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: _scenePathHash
+      value: 3565773147
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: _defaultDespawnType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 15314879054814349848
+      objectReference: {fileID: 0}
     - target: {fileID: 1445453044651339474, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.93
