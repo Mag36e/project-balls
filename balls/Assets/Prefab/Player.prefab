@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 258126722201764564}
   - component: {fileID: -8095054164044902183}
   - component: {fileID: 8555822362380022370}
+  - component: {fileID: -1614449007383393991}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -296,6 +297,8 @@ MonoBehaviour:
   lineRenderer: {fileID: 4959815014205386116}
   distanceJoint: {fileID: 6345658096664970537}
   hookPoints: []
+  closestHook: {x: 0, y: 0}
+  hooked: 0
 --- !u!114 &258126722201764564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +328,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 6
+  <PrefabId>k__BackingField: 9
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -390,3 +393,17 @@ MonoBehaviour:
   _overrideType: 3
   _updateHostVisibility: 1
   _observerConditions: []
+--- !u!114 &-1614449007383393991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3541555206730378947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b20e1557dab7754e82a213f54127727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 311900298402697033}
+  force: 1

@@ -5,14 +5,15 @@ using UnityEditor;
 using UnityEngine;
 using FishNet;
 using FishNet.Object;
+using UnityEngine.Serialization;
 
 public class GrappleHook : NetworkBehaviour
 {
     public LineRenderer lineRenderer;
     public DistanceJoint2D distanceJoint;
     public List<Transform> hookPoints = new List<Transform>();
-
-    private Vector2 _closestHook;
+    public Vector2 closestHook;
+    public bool hooked = false;
     private void Start()
     {
         foreach(GameObject Hp in GameObject.FindGameObjectsWithTag("Hook")) // hp == hoked Points
@@ -61,6 +62,7 @@ public class GrappleHook : NetworkBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 float closestDistance = float.MaxValue;
+                hooked = true;
                 foreach (Transform target in hookPoints)
                 {
                     float distance = Vector2.Distance(transform.position, target.transform.position);
@@ -68,12 +70,12 @@ public class GrappleHook : NetworkBehaviour
                     if (distance < closestDistance)
                     {
                         closestDistance = distance;
-                        _closestHook = target.transform.position;
+                        closestHook = target.transform.position;
                     }
                 }
                 lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, _closestHook);
-                distanceJoint.connectedAnchor = _closestHook;
+                lineRenderer.SetPosition(1, closestHook);
+                distanceJoint.connectedAnchor = closestHook;
                 distanceJoint.enabled = true;
                 lineRenderer.enabled = true;
                 Debug.Log("down");
@@ -81,6 +83,7 @@ public class GrappleHook : NetworkBehaviour
             }
             if(Input.GetKeyUp(KeyCode.Space))
             {
+                hooked = false;
                 distanceJoint.enabled = false;
                 lineRenderer.enabled = false;
                 Debug.Log("up");
