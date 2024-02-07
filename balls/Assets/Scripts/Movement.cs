@@ -20,13 +20,11 @@ public class Movement : MonoBehaviour
             {
                 rb.AddForce(transform.right * force);
                 StartCoroutine(Wait(0.05f));
-                Debug.Log("Right");
             }
             if (Input.GetKey(KeyCode.A) && (_closestHook.y / 2 > transform.position.y || _closestHook.x < transform.position.x))
             {
                 rb.AddForce(transform.right * -force);
                 StartCoroutine(Wait(0.05f));
-                Debug.Log("left");
             }
         }
     }

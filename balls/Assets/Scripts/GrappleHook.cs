@@ -25,7 +25,7 @@ public class GrappleHook : NetworkBehaviour
             hookPoints.Add(Hp.transform);
         }
         Debug.Log("found "+ hookPoints.Count);
-        distanceJoint.enabled = false;
+        distanceJoint.enabled = false;  
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
