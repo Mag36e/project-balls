@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using FishNet;
+using FishNet.Connection;
 using FishNet.Object;
+using FishNet.Object.Prediction;
+using FishNet.Transporting.Tugboat;
+using UnityEngine.Rendering;
 
 public class GrappleHook : NetworkBehaviour
 {
@@ -19,47 +23,32 @@ public class GrappleHook : NetworkBehaviour
         { 
             hookPoints.Add(Hp.transform);
         }
+        Debug.Log("found "+ hookPoints.Count);
         distanceJoint.enabled = false;
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if (base.IsOwner)
-        {
-            
-        }
-        else
+        if (!base.IsOwner)
         {
             GetComponent<GrappleHook>().enabled = false;
         }
     }
-
+    
     private void Update()
     {
-        if (!base.IsOwner)
+        if (!IsOwner)
         {
             return;
         }
-            GrappelHookToServer();
-    }
-
-    [ServerRpc]
-    public void GrappelHookToServer()
-    {
-        
-        GrappelHook();
-    }
-
-    // ReSharper disable Unity.PerformanceAnalysis
-    [ObserversRpc]
-    private void GrappelHook()
-    {
-        if (base.IsOwner)
-        {
-            transform.position = transform.position;
+        var transform1 = transform;
+        transform1.position = transform1.position;
+            
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                Debug.Log("TryingToHook");
                 float closestDistance = float.MaxValue;
                 foreach (Transform target in hookPoints)
                 {
@@ -71,26 +60,48 @@ public class GrappleHook : NetworkBehaviour
                         _closestHook = target.transform.position;
                     }
                 }
-                lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, _closestHook);
-                distanceJoint.connectedAnchor = _closestHook;
-                distanceJoint.enabled = true;
-                lineRenderer.enabled = true;
-                Debug.Log("down");
-
-            }
-            if(Input.GetKeyUp(KeyCode.Space))
-            {
-                distanceJoint.enabled = false;
-                lineRenderer.enabled = false;
-                Debug.Log("up");
-
+                Hook();
             }
 
-            if (distanceJoint.enabled)
-            {
-                lineRenderer.SetPosition(0, transform.position);
-            }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            ServerConectionHookLetGo();
+        }
+        
+        if (distanceJoint.enabled)
+        {
+            lineRenderer.SetPosition(0, transform.position);
         }
     }
+        
+    public void ServerConectionHook()
+    {
+        Hook();
+    }
+    [ServerRpc]
+    public void ServerConectionHookLetGo()
+    {
+        HookLetgo();
+    }
+    
+    
+    private void Hook()
+    {
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, _closestHook);
+        distanceJoint.connectedAnchor = _closestHook;
+        distanceJoint.enabled = true;
+        lineRenderer.enabled = true;
+        Debug.Log(("whatman"));
+    }
+
+    [ObserversRpc]
+    private void HookLetgo()
+    {
+        distanceJoint.enabled = false;
+        lineRenderer.enabled = false;
+        Debug.Log("up");
+    }
+
+    
 }
