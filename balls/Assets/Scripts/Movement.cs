@@ -15,7 +15,7 @@ public class Movement : MonoBehaviour
     {
         if (gameObject.GetComponent<GrappleHook>().hooked)
         {
-            _closestHook = gameObject.GetComponent<GrappleHook>().closestHook;
+            _closestHook = gameObject.GetComponent<GrappleHook>()._closestHook;
             if (Input.GetKey(KeyCode.D) && (_closestHook.y / 2 > transform.position.y || _closestHook.x > transform.position.x))
             {
                 rb.AddForce(transform.right * force);

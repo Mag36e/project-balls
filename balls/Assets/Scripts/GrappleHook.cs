@@ -4,65 +4,54 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using FishNet;
+using FishNet.Connection;
 using FishNet.Object;
-using UnityEngine.Serialization;
+using FishNet.Object.Prediction;
+using FishNet.Transporting.Tugboat;
+using UnityEngine.Rendering;
 
 public class GrappleHook : NetworkBehaviour
 {
     public LineRenderer lineRenderer;
     public DistanceJoint2D distanceJoint;
     public List<Transform> hookPoints = new List<Transform>();
-    public Vector2 closestHook;
-    public bool hooked = false;
+
+    public Vector2 _closestHook;
+    public bool hooked;
     private void Start()
     {
         foreach(GameObject Hp in GameObject.FindGameObjectsWithTag("Hook")) // hp == hoked Points
         { 
             hookPoints.Add(Hp.transform);
         }
+        Debug.Log("found "+ hookPoints.Count);
         distanceJoint.enabled = false;
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if (base.IsOwner)
-        {
-            
-        }
-        else
+        if (!base.IsOwner)
         {
             GetComponent<GrappleHook>().enabled = false;
         }
     }
-
+    
     private void Update()
     {
-        if (!base.IsOwner)
+        if (!IsOwner)
         {
             return;
         }
-            GrappelHookToServer();
-    }
-
-    [ServerRpc]
-    public void GrappelHookToServer()
-    {
-        
-        GrappelHook();
-    }
-
-    // ReSharper disable Unity.PerformanceAnalysis
-    [ObserversRpc]
-    private void GrappelHook()
-    {
-        if (base.IsOwner)
-        {
-            transform.position = transform.position;
+        var transform1 = transform;
+        transform1.position = transform1.position;
+            
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                float closestDistance = float.MaxValue;
                 hooked = true;
+                Debug.Log("TryingToHook");
+                float closestDistance = float.MaxValue;
                 foreach (Transform target in hookPoints)
                 {
                     float distance = Vector2.Distance(transform.position, target.transform.position);
@@ -70,30 +59,53 @@ public class GrappleHook : NetworkBehaviour
                     if (distance < closestDistance)
                     {
                         closestDistance = distance;
-                        closestHook = target.transform.position;
+                        _closestHook = target.transform.position;
                     }
                 }
-                lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, closestHook);
-                distanceJoint.connectedAnchor = closestHook;
-                distanceJoint.enabled = true;
-                lineRenderer.enabled = true;
-                Debug.Log("down");
-
-            }
-            if(Input.GetKeyUp(KeyCode.Space))
-            {
-                hooked = false;
-                distanceJoint.enabled = false;
-                lineRenderer.enabled = false;
-                Debug.Log("up");
-
+                Hook();
             }
 
-            if (distanceJoint.enabled)
-            {
-                lineRenderer.SetPosition(0, transform.position);
-            }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            hooked = false;
+            ServerConectionHookLetGo();
+        }
+        
+        if (distanceJoint.enabled)
+        {
+            lineRenderer.SetPosition(0, transform.position);
         }
     }
+    
+    [ServerRpc]
+    public void ServerConectionHook()
+    {
+        Hook();
+    }
+    [ServerRpc]
+    public void ServerConectionHookLetGo()
+    {
+        HookLetgo();
+    }
+    
+    
+    private void Hook()
+    {
+        lineRenderer.SetPosition(0, transform.position);
+        lineRenderer.SetPosition(1, _closestHook);
+        distanceJoint.connectedAnchor = _closestHook;
+        distanceJoint.enabled = true;
+        lineRenderer.enabled = true;
+        Debug.Log(("whatman"));
+    }
+
+    [ObserversRpc]
+    private void HookLetgo()
+    {
+        distanceJoint.enabled = false;
+        lineRenderer.enabled = false;
+        Debug.Log("up");
+    }
+
+    
 }
