@@ -269,12 +269,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
       propertyPath: _scenePathHash
       value: 3724850025
       objectReference: {fileID: 0}
     - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
       propertyPath: <SceneId>k__BackingField
-      value: 15998109041098326556
+      value: 15998109043608994426
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: 0.18990523
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: 3.5137448
       objectReference: {fileID: 0}
     - target: {fileID: 1445453044651339474, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -335,12 +347,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
       propertyPath: _scenePathHash
       value: 3724850025
       objectReference: {fileID: 0}
     - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
       propertyPath: <SceneId>k__BackingField
-      value: 15998109041746752624
+      value: 15998109043011879784
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: 3.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: 1.78
       objectReference: {fileID: 0}
     - target: {fileID: 1445453044651339474, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -401,12 +425,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
       propertyPath: _scenePathHash
       value: 3724850025
       objectReference: {fileID: 0}
     - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
       propertyPath: <SceneId>k__BackingField
-      value: 15998109040509305157
+      value: 15998109043171973826
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: -1.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 1445453044651339474, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -452,7 +488,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hook point (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1340304150780656626, guid: 20233832d4a864944aa071ea45f3ec1c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -507,7 +544,6 @@ GameObject:
   - component: {fileID: 1134335536508489252}
   - component: {fileID: 7562024104003972866}
   - component: {fileID: 1134335536508489258}
-  - component: {fileID: 7562024104003972867}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -1052,25 +1088,6 @@ MonoBehaviour:
   _updateHostVisibility: 1
   _defaultConditions:
   - {fileID: 11400000, guid: 2033f54fd2794464bae08fa5a55c8996, type: 2}
---- !u!114 &7562024104003972867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1134335536508489253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e08bb003fce297d4086cf8cba5aa459a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _queuedInputs: 1
-  _dropExcessiveReplicates: 1
-  _maximumServerReplicates: 15
-  _maximumConsumeCount: 4
-  _redundancyCount: 3
-  _allowPredictedSpawning: 0
-  _reservedObjectIds: 15
 --- !u!114 &8877310698726631590
 MonoBehaviour:
   m_ObjectHideFlags: 0
