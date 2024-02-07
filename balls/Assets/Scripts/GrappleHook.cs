@@ -24,7 +24,6 @@ public class GrappleHook : NetworkBehaviour
         { 
             hookPoints.Add(Hp.transform);
         }
-        Debug.Log("found "+ hookPoints.Count);
         distanceJoint.enabled = false;
     }
 
@@ -35,6 +34,8 @@ public class GrappleHook : NetworkBehaviour
         if (!base.IsOwner)
         {
             GetComponent<GrappleHook>().enabled = false;
+            
+            Destroy(gameObject.GetComponent<Rigidbody2D>());
         }
     }
     
@@ -50,7 +51,6 @@ public class GrappleHook : NetworkBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 hooked = true;
-                Debug.Log("TryingToHook");
                 float closestDistance = float.MaxValue;
                 foreach (Transform target in hookPoints)
                 {
@@ -76,19 +76,10 @@ public class GrappleHook : NetworkBehaviour
             lineRenderer.SetPosition(0, transform.position);
         }
     }
-    
-    [ServerRpc]
-    public void ServerConectionHook()
-    {
-        Hook();
-    }
-    [ServerRpc]
     public void ServerConectionHookLetGo()
     {
         HookLetgo();
     }
-    
-    
     private void Hook()
     {
         lineRenderer.SetPosition(0, transform.position);
@@ -96,16 +87,35 @@ public class GrappleHook : NetworkBehaviour
         distanceJoint.connectedAnchor = _closestHook;
         distanceJoint.enabled = true;
         lineRenderer.enabled = true;
-        Debug.Log(("whatman"));
+        HookUpdate();
     }
-
-    [ObserversRpc]
+    
     private void HookLetgo()
     {
         distanceJoint.enabled = false;
         lineRenderer.enabled = false;
-        Debug.Log("up");
+        HookUpdate();
     }
+
+    [ObserversRpc]
+    private void HookUpdate()
+    {
+        if (hooked)
+        {
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, _closestHook);
+        }
+
+        if (!hooked)
+        {
+            distanceJoint.enabled = false;
+            lineRenderer.enabled = false;
+        }
+       
+    }
+    
+    
+    
 
     
 }
