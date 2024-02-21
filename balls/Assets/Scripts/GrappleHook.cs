@@ -76,6 +76,7 @@ public class GrappleHook : NetworkBehaviour
             lineRenderer.SetPosition(0, transform.position);
         }
     }
+    
 
     private void FixedUpdate()
     {
