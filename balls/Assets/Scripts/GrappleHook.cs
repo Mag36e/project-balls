@@ -68,7 +68,7 @@ public class GrappleHook : NetworkBehaviour
         if (Input.GetKeyUp(KeyCode.Space))
         {
             hooked = false;
-            ServerConectionHookLetGo();
+            HookLetgo();
         }
         
         if (distanceJoint.enabled)
@@ -76,19 +76,27 @@ public class GrappleHook : NetworkBehaviour
             lineRenderer.SetPosition(0, transform.position);
         }
     }
-    
+
+    private void FixedUpdate()
+    {
+        ServerConectionHook();
+    }
+
     [ServerRpc]
     public void ServerConectionHook()
     {
-        Hook();
+        if (hooked == true)
+        {
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, _closestHook);
+            distanceJoint.connectedAnchor = _closestHook;
+        }
+        else
+        {
+            distanceJoint.enabled = false;
+            lineRenderer.enabled = false;
+        }
     }
-    [ServerRpc]
-    public void ServerConectionHookLetGo()
-    {
-        HookLetgo();
-    }
-    
-    
     private void Hook()
     {
         lineRenderer.SetPosition(0, transform.position);
@@ -96,15 +104,11 @@ public class GrappleHook : NetworkBehaviour
         distanceJoint.connectedAnchor = _closestHook;
         distanceJoint.enabled = true;
         lineRenderer.enabled = true;
-        Debug.Log(("whatman"));
     }
-
-    [ObserversRpc]
     private void HookLetgo()
     {
         distanceJoint.enabled = false;
         lineRenderer.enabled = false;
-        Debug.Log("up");
     }
 
     
