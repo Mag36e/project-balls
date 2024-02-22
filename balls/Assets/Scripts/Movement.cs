@@ -18,7 +18,6 @@ public class Movement : MonoBehaviour
     {
         if (gameObject.GetComponent<GrappleHook>().hooked)
         {
-            Retract();
             _closestHook = gameObject.GetComponent<GrappleHook>()._closestHook;
             if (_notWaiting)
             {
@@ -35,14 +34,7 @@ public class Movement : MonoBehaviour
             }
         }
     }
-
-    private void Retract()
-    {
-        Vector3 position = transform.position;
-        _direction.Set(position.x + _closestHook.x, position.y + _closestHook.y);
-        _direction.Normalize();
-        Debug.Log(_direction);
-    }
+    
 
     IEnumerator Wait(float time)
     {

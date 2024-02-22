@@ -130,7 +130,7 @@ DistanceJoint2D:
   m_GameObject: {fileID: 3541555206730378947}
   m_Enabled: 1
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 0}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
@@ -298,7 +298,9 @@ MonoBehaviour:
   lineRenderer: {fileID: 4959815014205386116}
   distanceJoint: {fileID: 6345658096664970537}
   hookPoints: []
+  rb: {fileID: 311900298402697033}
   _closestHook: {x: 0, y: 0}
+  retractDistance: 1
   hooked: 0
 --- !u!114 &258126722201764564
 MonoBehaviour:

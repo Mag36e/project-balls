@@ -15,8 +15,12 @@ public class GrappleHook : NetworkBehaviour
     public LineRenderer lineRenderer;
     public DistanceJoint2D distanceJoint;
     public List<Transform> hookPoints = new List<Transform>();
+    public Rigidbody2D rb;
 
     public Vector2 _closestHook;
+    private Vector2 _direction;
+    public float retractDistance;
+    private bool _retract = true;
     public bool hooked;
     private void Start()
     {
@@ -63,6 +67,7 @@ public class GrappleHook : NetworkBehaviour
                     }
                 }
                 Hook();
+                Retract();
             }
 
         if (Input.GetKeyUp(KeyCode.Space))
@@ -110,7 +115,17 @@ public class GrappleHook : NetworkBehaviour
     {
         distanceJoint.enabled = false;
         lineRenderer.enabled = false;
+        _retract = true;
     }
 
-    
+    private void Retract()
+    {
+        if (_retract)
+        {
+            distanceJoint.distance -= retractDistance;
+            _retract = false;
+        }
+        /*rb.AddForce(Vector2.Lerp(transform.position, _closestHook, 0.5f) * 10 );
+        Hook();*/
+    }
 }
