@@ -48,27 +48,24 @@ public class GrappleHook : NetworkBehaviour
         {
             return;
         }
-        var transform1 = transform;
-        transform1.position = transform1.position;
-            
-            if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            hooked = true;
+            Debug.Log("TryingToHook");
+            float closestDistance = float.MaxValue;
+            foreach (Transform target in hookPoints)
             {
-                hooked = true;
-                Debug.Log("TryingToHook");
-                float closestDistance = float.MaxValue;
-                foreach (Transform target in hookPoints)
-                {
-                    float distance = Vector2.Distance(transform.position, target.transform.position);
+                float distance = Vector2.Distance(transform.position, target.transform.position);
 
-                    if (distance < closestDistance)
-                    {
-                        closestDistance = distance;
-                        _closestHook = target.transform.position;
-                    }
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    _closestHook = target.transform.position;
                 }
-                Hook();
-                Retract();
             }
+            Hook();
+            Retract();
+        }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
@@ -86,6 +83,7 @@ public class GrappleHook : NetworkBehaviour
     private void FixedUpdate()
     {
         ServerConectionHook();
+        ObserverHook();
     }
 
     [ServerRpc]
@@ -103,6 +101,15 @@ public class GrappleHook : NetworkBehaviour
             lineRenderer.enabled = false;
         }
     }
+    
+    [ObserversRpc]
+    public void ObserverHook()
+    {
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, _closestHook);
+            distanceJoint.connectedAnchor = _closestHook;
+    }
+ 
     private void Hook()
     {
         lineRenderer.SetPosition(0, transform.position);
